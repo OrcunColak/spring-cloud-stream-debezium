@@ -13,13 +13,17 @@ spring:
   sql:
     init:
       mode: never
+      
   cloud:
+    function:
+      definition: debeziumMessageConsumer
+      ineligible-definitions: sendToDlqAndContinue
     stream:
       kafka:
         binder:
           brokers: localhost:9093
       bindings:
         debeziumMessageConsumer-in-0:
-          destination: pg-changes.public.persons
-          group: 1
+          destination: pg-changes.public.person
+#          group: 1
           content-type: application/json
